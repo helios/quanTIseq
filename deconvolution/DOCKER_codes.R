@@ -89,8 +89,9 @@ mapGenes<-function(mydata) {
   ind<-intersect(which(is.na(newgenes)), 
                  which(!is.na(newgenes2)))
   newgenes[ind]<-newgenes2[ind]
-  
-  mydata<-mydata[which(!is.na(newgenes)),]
+  cnames<-colnames(mydata)
+  mydata<-as.matrix(mydata[which(!is.na(newgenes)),])
+  colnames(mydata)
   newgenes<-newgenes[which(!is.na(newgenes))]
   
   # Take the median if duplicates are present
@@ -110,7 +111,9 @@ quanTIseq<-function(currsig, currmix, scaling, method) {
   
   cgenes<-intersect(rownames(currsig), rownames(currmix))
   currsig<-as.matrix(currsig[cgenes,])
+  cnames<-colnames(currmix)
   currmix<-as.matrix(currmix[cgenes,])
+  colnames(currmix)<-cnames
   
   if (method == "lsei") {
     
